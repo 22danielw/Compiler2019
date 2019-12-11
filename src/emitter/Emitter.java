@@ -101,9 +101,9 @@ public class Emitter
 
     /**
      * Sets the current procedure context to proc. Procedure context
-     * represents the current procedure being compiled
+     * represents the current procedure being compiled.
      *
-     * @param proc the procedure currently
+     * @param proc the procedure currently being compiled
      */
     public void setProcedureContext(ProcedureDeclaration proc)
     {
