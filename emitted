@@ -1,0 +1,63 @@
+	.data
+	newLine: .asciiz "\n"
+	varx: .word 0
+	varignore: .word 0
+	.text
+	.globl main
+main:
+	li $v0 2
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	li $v0 4
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	jal proccountUp
+	lw $t0 ($sp)
+	addu $sp $sp 4
+	lw $t0 ($sp)
+	addu $sp $sp 4
+	sw $v0 varx
+	li $v0 10
+	syscall
+proccountUp:
+	li $v0 0
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	subu $sp $sp 4
+	sw $ra ($sp)
+	lw $v0 12($sp)
+	move $t0 $v0
+	lw $v0 8($sp)
+	move $t1 $v0
+	bgt $t0 $t1 endif1
+	lw $v0 12($sp)
+	move $a0 $v0
+	li $v0 1
+	syscall
+	la $a0 newLine
+	li $v0 4
+	syscall
+	lw $v0 12($sp)
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	li $v0 1
+	lw $t0 ($sp)
+	addu $sp $sp 4
+	addu $v0 $v0 $t0
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	lw $v0 12($sp)
+	subu $sp $sp 4
+	sw $v0 ($sp)
+	jal proccountUp
+	lw $t0 ($sp)
+	addu $sp $sp 4
+	lw $t0 ($sp)
+	addu $sp $sp 4
+	sw $v0 varignore
+endif1:
+	lw $ra ($sp)
+	addu $sp $sp 4
+	lw $v0 ($sp)
+	addu $sp $sp 4
+	jr $ra
