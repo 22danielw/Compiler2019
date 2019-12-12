@@ -10,6 +10,7 @@ import java.io.*;
  * @author Ms. Datar
  * @author Daniel Wu
  * @version 11/29/2019
+ * @version 12/12/2019
  */
 public class Emitter
 {
@@ -47,11 +48,6 @@ public class Emitter
         out.println(code);
     }
 
-    public ProcedureDeclaration getProcedureContext()
-    {
-        return currentProc;
-    }
-
     /**
      * Closes the file. Should be called after all calls to emit.
      */
@@ -62,7 +58,7 @@ public class Emitter
 
     /**
      * Emits code that pushes the value in a given register
-     * onto the stack.
+     * onto the stack. Increments the excess stack height.
      *
      * @param reg the register whose value is being stored
      */
@@ -75,7 +71,8 @@ public class Emitter
 
     /**
      * Emits code that pops the top value of a stack and store
-     * it into a given register
+     * it into a given register. Also subtracts one from
+     * the excess stack height.
      *
      * @param reg the register to where the value at the top of the
      *            stack will be stored.
@@ -111,11 +108,23 @@ public class Emitter
         excessStackHeight = 0;
     }
 
+    /**
+     * Clears the procedure context by setting the current procedure to null.
+     * Called whenever the current procedure has finished compiling.
+     */
     public void clearProcedureContext()
     {
         currentProc = null;
     }
 
+    /**
+     * Returns whether or not the variable name given is a local variable.
+     * A variable is considered a local variable if it is the name of
+     * procedure, declared in the procedure declaration, or a parameter.
+     *
+     * @param varName the variable name being searched for
+     * @return true if the variable is a local variable; false otherwise
+     */
     public boolean isLocalVariable(String varName)
     {
         if (currentProc == null)
@@ -128,7 +137,9 @@ public class Emitter
     }
 
     /**
-     * Returns the value of the stack offset that the
+     * Returns the value of the stack offset that the variable
+     * being searched for depending on whether it is a local
+     * variable, parameter, or a return value.
      *
      *
      * @precondition localVarName is the name of a local

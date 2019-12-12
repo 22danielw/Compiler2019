@@ -1,0 +1,19 @@
+BEGIN
+    	x := 3;
+    	y := x + 1;
+    	x := x + y;
+    	WRITELN(x * y);
+    	IF x > y THEN
+        BEGIN
+        	WRITELN(x);
+        	WRITELN(y);
+        END;
+        x := 0;
+        WHILE x < 12 DO
+        BEGIN
+        	WRITELN(x);
+       		x := x + 1;
+       	END;
+
+    END;
+.
