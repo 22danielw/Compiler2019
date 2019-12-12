@@ -31,6 +31,7 @@ public class Assignment extends Statement
 
     /**
      * A getter method for the name of the variable
+     *
      * @return the instance field var
      */
     public String getVariable()
@@ -40,6 +41,7 @@ public class Assignment extends Statement
 
     /**
      * A getter method for expression stored by the assignment
+     *
      * @return the instance field exp
      */
     public Expression getExpression()
@@ -59,8 +61,8 @@ public class Assignment extends Statement
         {
             exp.compile(e);
 
-                int offSet = e.getOffSet(var);
-                e.emit("sw $v0 " + offSet + "($sp)");
+            int offSet = e.getOffSet(var);
+            e.emit("sw $v0 " + offSet + "($sp)");
         }
         else
         {

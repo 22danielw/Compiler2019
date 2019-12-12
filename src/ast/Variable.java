@@ -45,8 +45,8 @@ public class Variable extends Expression
     {
         if (e.isLocalVariable(name))
         {
-                int offSet = e.getOffSet(name);
-                e.emit("lw $v0 " + offSet + "($sp)");
+            int offSet = e.getOffSet(name);
+            e.emit("lw $v0 " + offSet + "($sp)");
         }
         else
         {
